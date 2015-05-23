@@ -3,7 +3,6 @@
 "    -> General
 "    -> Writing Mode
 "    -> VIM user interface
-"    -> Colors and Fonts
 "    -> Files and backups
 "    -> Text, tab and indent related
 "    -> Visual mode related
@@ -14,6 +13,7 @@
 "    -> Spell checking
 "    -> Misc
 "    -> Helper functions
+"    -> Colors and Fonts
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -42,14 +42,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'SirVer/ultisnips'
+Plug 'kchmck/vim-coffee-script'
 Plug 'honza/vim-snippets'
-"Plug 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
 Plug 'kien/ctrlp.vim'
 Plug 'hdima/python-syntax'
 Plug 'ryanoasis/vim-webdevicons'
 Plug 'godlygeek/csapprox'
-Plug 'xolox/vim-easytags'
 Plug 'spolu/dwm.vim'
 Plug 'rking/ag.vim'
 Plug 'mattn/emmet-vim'
@@ -62,10 +61,12 @@ Plug 'gregsexton/MatchTag'
 Plug 'edkolev/tmuxline.vim'
 Plug 'xuhdev/SingleCompile'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-eunuch'
-Plug 'SirVer/ultisnips'
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'terryma/vim-expand-region'
@@ -77,6 +78,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'Shougo/neocomplcache.vim'
+Plug 'vim-scripts/Eddie.vim'
 
 " On-demand loading
 Plug 'scrooloose/syntastic', {'on': 'SyntasticCheck' }
@@ -92,18 +94,18 @@ call plug#end()
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 "visualhtml
-let g:visualHtml#ftblacklist = ["markdown"]
+"let g:visualHtml#ftblacklist = ["markdown"]
 
-visualHtml#SetLive(b)
-visualHtml#ToggleLive()
-let g:visualHtml#live = 1
-let g:visualHtml#serverRoot = "/srv/http"
-let g:visualHtml#serverRootUrl = "http://localhost"
-let g:visualhtml#browser = "clcb"
-let g:visualhtml#clcb#exe = "/usr/bin/clcbrowser"
-let g:visualhtml#clcb#geometry = "683x741+683+0"
+"visualHtml#SetLive(b)
+"visualHtml#ToggleLive()
+"let g:visualHtml#live = 1
+"let g:visualHtml#serverRoot = "/srv/http"
+"let g:visualHtml#serverRootUrl = "http://localhost"
+"let g:visualhtml#browser = "clcb"
+"let g:visualhtml#clcb#exe = "/usr/bin/clcbrowser"
+"let g:visualhtml#clcb#geometry = "683x741+683+0"
 
-let g:visualHtml#active = 1
+"let g:visualHtml#active = 1
 
 "easytags
 let g:easytags_async = 1
@@ -147,9 +149,9 @@ endif
 syn on
 " ultisnips settings
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<C-s>"
-let g:ultisnipsjumpforwardtrigger="<c-b>"
-let g:ultisnipsjumpbackwardtrigger="<c-z>"
+"let g:UltiSnipsExpandTrigger="<C-s>"
+"let g:ultisnipsjumpforwardtrigger="<c-b>"
+"let g:ultisnipsjumpbackwardtrigger="<c-z>"
 " if you want :ultisnipsedit to split your window.
 "let g:ultisnipseditsplit="vertical"
 
@@ -356,7 +358,7 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 "preview html file in browser
-nnoremap <leader>p :!google-chrome-stable %<CR>
+nnoremap <leader>p :! open -a safari %<CR>
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -547,53 +549,6 @@ let g:ycm_show_diangnostics_ui=1
 let g:ycm_error_symbol='x'
 let g:ycm_warning_symbol='>>'
 let g:ycm_enable_diagnostic_sign=1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
-
-
-try
-    set t_Co=256
-catch
-endtry
-
-
-
-
-
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=M
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions-=e
-    set guifont=Monaco\ for\ Powerline\ Bold\ 11 
-    set guitablabel=%M\ %t
-    set background=dark
-    set guioptions=bold
-    colorscheme monokai
-endif
-
-" toggle menu bar
-nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-
-"highlight colors of the completion popup
-hi Pmenu ctermfg=lightgray ctermbg=0
-hi PmenuSel ctermfg=lightgray ctermbg=green
-"highlight the new line tilda
-hi NonText ctermfg=0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -617,8 +572,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -894,6 +849,17 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" toggle menu bar
+nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
 
 set background=dark
 if version > 580
@@ -903,196 +869,36 @@ if version > 580
 	endif
 endif
 
+colorscheme base16-flat
 set t_Co=256
 "highlight the current line and line number
 set cursorline
 hi CursorLineNR cterm=NONE ctermfg=79 ctermbg=NONE
 hi CursorLine term=NONE cterm=NONE ctermbg=NONE
+hi LineNr ctermfg=67
 
+" Set extra options when running in GUI mode
+if has("gui_running")
+    colorscheme base16-flat
+    hi LineNr guibg=#2D3E4F
+    set transparency=10
+    set guioptions-=T
+    set guioptions-=M
+    set guioptions-=r
+    set guioptions-=e
+    set guifont=Monaco\ for\ Powerline\ Plus\ Nerd\ File\ Types:h14 
+    set guitablabel=%M\ %t
+    set background=dark
+    set guioptions=bold
+    set guioptions=-L
+endif
 
-"colorscheme base16-flat
-""""base16-flat settings""
-
-"hi Normal ctermbg=NONE ctermfg=255
-"hi pythonFuncName ctermfg=39
-"hi pythonParamName ctermfg=141
-"hi pythonDocString ctermfg=67
-
-"""""""""""""""""""""""""
-
-"hi IncSearch -- no settings --
-"hi WildMenu -- no settings --
-"hi SignColumn -- no settings --
-"hi SpecialComment -- no settings --
-hi Typedef guifg=#b45ddc guibg=NONE guisp=NONE gui=NONE ctermfg=141 ctermbg=NONE cterm=NONE
-"hi Title -- no settings --
-"hi Folded -- no settings --
-"hi PreCondit -- no settings --
-hi Include guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-hi Float guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-"hi StatusLineNC -- no settings --
-"hi CTagsMember -- no settings --
-hi NonText guifg=#34d58e guibg=NONE guisp=NONE gui=NONE ctermfg=79 ctermbg=NONE cterm=NONE
-hi CTagsGlobalConstant guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-"hi DiffText -- no settings --
-"hi ErrorMsg -- no settings --
-"hi Ignore -- no settings --
-"hi Debug -- no settings --
-hi PMenuSbar guifg=NONE guibg=#848688 guisp=#848688 gui=NONE ctermfg=NONE ctermbg=102 cterm=NONE
-hi Identifier guifg=#b35ddc guibg=NONE guisp=NONE gui=NONE ctermfg=141 ctermbg=NONE cterm=NONE
-"hi SpecialChar -- no settings --
-hi Conditional guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-hi StorageClass guifg=#e4bc38 guibg=NONE guisp=NONE gui=NONE ctermfg=179 ctermbg=NONE cterm=NONE
-"hi Todo -- no settings --
-"hi Special -- no settings --
-"hi StatusLine -- no settings --
-hi Normal guifg=#34d58e guibg=#2f475d guisp=#2f475d gui=NONE ctermfg=79 ctermbg=NONE cterm=NONE
-"hi Label -- no settings --
-hi CTagsImport guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-hi PMenuSel guifg=#88dd88 guibg=#949698 guisp=#949698 gui=NONE ctermfg=114 ctermbg=246 cterm=NONE
-"hi Search -- no settings --
-hi CTagsGlobalVariable guifg=#b45ddc guibg=NONE guisp=NONE gui=NONE ctermfg=141 ctermbg=NONE cterm=NONE
-hi Delimiter guifg=#b45ddc guibg=NONE guisp=NONE gui=NONE ctermfg=141 ctermbg=NONE cterm=NONE
-"hi Statement -- no settings --
-"hi SpellRare -- no settings --
-"hi EnumerationValue -- no settings --
-hi Comment guifg=#406c9b guibg=NONE guisp=NONE gui=italic ctermfg=67 ctermbg=NONE cterm=NONE
-hi Character guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-"hi TabLineSel -- no settings --
-hi Number guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-hi javaScriptNumber guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-hi Boolean guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-hi Operator guifg=#16a084 guibg=NONE guisp=NONE gui=NONE ctermfg=36 ctermbg=NONE cterm=NONE
-"hi Union -- no settings --
-"hi TabLineFill -- no settings --
-hi Question guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-"hi WarningMsg -- no settings --
-"hi VisualNOS -- no settings --
-"hi DiffDelete -- no settings --
-"hi ModeMsg -- no settings --
-"hi CursorColumn -- no settings --
-hi Define guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-hi Function guifg=#e4bc38 guibg=NONE guisp=NONE gui=NONE ctermfg=227 ctermbg=NONE cterm=NONE
-"hi FoldColumn -- no settings --
-"hi PreProc -- no settings --
-"hi EnumerationName -- no settings --
-"hi Visual -- no settings --
-"hi MoreMsg -- no settings --
-hi VertSplit ctermfg=0 guibg=#3498db ctermbg=67 guifg=#2f475d
-"SpellCap -- no settings --
-"hi VertSplit -- no settings --
-"hi Exception -- no settings --
-hi Keyword guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-hi Type guifg=#e67e22 guibg=NONE guisp=NONE gui=NONE ctermfg=166 ctermbg=NONE cterm=NONE
-hi PMenu guifg=#dddddd guibg=#545658 guisp=#545658 gui=NONE ctermfg=253 ctermbg=240 cterm=NONE
-"hi SpecialKey -- no settings --
-hi Constant guifg=#3498db guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
-hi DefinedName guifg=#e4bc38 guibg=NONE guisp=NONE gui=NONE ctermfg=179 ctermbg=NONE cterm=NONE
-hi Tag guifg=#f39d12 guibg=NONE guisp=NONE gui=NONE ctermfg=214 ctermbg=NONE cterm=NONE
-hi String guifg=#16a084 guibg=NONE guisp=NONE gui=NONE ctermfg=36 ctermbg=NONE cterm=NONE
-hi PMenuThumb guifg=NONE guibg=#a4a6a8 guisp=#a4a6a8 gui=NONE ctermfg=NONE ctermbg=248 cterm=NONE
-hi LocalVariable guifg=#b45ddc guibg=NONE guisp=NONE gui=NONE ctermfg=141 ctermbg=NONE cterm=NONE
-hi CTagsClass guifg=#e4bc38 guibg=NONE guisp=NONE gui=NONE ctermfg=179 ctermbg=NONE cterm=NONE
-hi Structure guifg=#e75c3d guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-
-hi htmlTagName guifg=#f39c12 guibg=NONE guisp=NONE gui=NONE ctermfg=214 ctermbg=NONE cterm=NONE
-hi htmlSpecialTagName guifg=#f39c12 guibg=NONE guisp=NONE gui=NONE ctermfg=214 ctermbg=NONE cterm=NONE
-hi htmlTag guifg=#f39c12 guibg=NONE guisp=NONE gui=NONE ctermfg=214 ctermbg=NONE cterm=NONE
-hi htmlEndTag guifg=#f39c12 guibg=NONE guisp=NONE gui=NONE ctermfg=214 ctermbg=NONE cterm=NONE
-hi htmlString guifg=#f1c40f guibg=NONE guisp=NONE gui=NONE ctermbg=NONE cterm=NONE
-hi htmlTitle guifg=#34d58e guibg=#2f475d guisp=#2f475d gui=NONE ctermfg=79 ctermbg=23 cterm=NONE
-hi htmlH1 guifg=#34d58e guibg=#2f475d guisp=#2f475d gui=NONE ctermfg=79 ctermbg=23 cterm=NONE
-hi htmlArg ctermfg=227
-hi rubyClass guifg=#e75c3d guibg=#2f475d guisp=#2f475d gui=NONE ctermfg=209 ctermbg=NONE 
-"hi clear -- no settings --
-hi Test ctermfg=141
-hi Statement ctermfg=209
-hi Entity ctermfg=227
-hi LineNr ctermfg=67 guifg=#406c9b
-hi rubyInstanceVariable ctermfg=141
-hi rubyLocalVariableOrMethod ctermfg=227
-hi rubyClassNameTag ctermfg=79
-hi rubySymbol ctermfg=39
-hi rubyConstant ctermfg=79
-hi rubyStringDelimiter ctermfg=36 guifg=#16a084 
-hi rubyPseudoVariable ctermfg=227
-hi rubyInterpolationDelimiter ctermfg=36
-hi rubyConditionalExtression ctermfg=227
-hi rubyDoBlock ctermfg=227
-
-hi javaScopeDecl guifg=#e75c3d ctermfg=209
-hi javaClassDecl guifg=#e75c3d ctermfg=209
-hi javaClassTag ctermfg=79
-hi javaStorageClass guifg=#e75c3d ctermfg=209
-hi javaType guifg=#e75c3d ctermfg=209
-hi javaRepeat guifg=#e75c3d ctermfg=209
-hi rainbow_r0 guifg=#a566bf ctermfg=141
-hi rainbow_r1 guifg=#a566bf
-
-
-hi cssMediaProp ctermfg=36
-hi cssIncludeKeyword ctermfg=209
-hi cssIdentifier ctermfg=36
-hi cssPositioningProp ctermfg=79
-hi cssTagName ctermfg=36
-hi cssBraces ctermfg=36
-hi cssFunctionName ctermfg=227
-hi cssClassName ctermfg=36
-hi cssBackgroundProp ctermfg=79
-hi cssDimensionProp ctermfg=79
-hi cssBoxProp ctermfg=79
-hi cssBorderProp ctermfg=79
-hi cssFlexibleBoxProp ctermfg=79
-hi cssFlexibleBoxProp ctermfg=79
-hi cssUIProp ctermfg=79
-hi cssColor ctermfg=141
-hi cssValueLength ctermfg=141
-hi cssPositioningAttr ctermfg=209
-hi cssFontProp ctermfg=79
-hi cssTextProp ctermfg=79 
-hi cssMediaType ctermfg=36
-hi cssAttrComma ctermfg=209
-hi cssCommonAttr ctermfg=209
-hi cssBorderAttr ctermfg=209
-hi cssUIAttr ctermfg=209
-hi cssBackgroundAttr ctermfg=209
-hi cssUnitDecorators ctermfg=141
-hi cssValueNumber ctermfg=141
-hi cssPseudoClassFn ctermfg=39
-
-hi javaScriptIdentifier ctermfg=209
-hi javaScriptBraces ctermfg=79
-hi javaScriptGlobal ctermfg=39
-hi javaScriptBoolean ctermfg=39
-hi javaScriptBrowserObjects ctermfg=39
-hi javaScriptFuncKeyword ctermfg=209
-hi javaScriptFuncDef ctermfg=227
-hi javaScriptEventListenerKeywords ctermfg=228
-
-hi phpParent ctermfg=79
-hi phpSelector ctermfg=79
-hi Delimiter ctermfg=209
-hi phpType ctermfg=133
-hi phpDocToDo ctermbg=NONE
-
-hi sqlSetValues ctermfg=79
-hi sqlKeyword ctermfg=209
-
-hi pythonFuncName guifg=#ffff5f ctermfg=227
-hi pythonFuncDef guifg=#e75c3d ctermfg=209 
-hi pythonParamName guifg=#b35ddc ctermfg=141
-hi pythonDocString guifg=#406c9b ctermfg=67
-hi pythonFunctionTag guifg=#ffff5f ctermfg=227
-hi pythonPreCondit guifg=#e75c3d ctermfg=209
-
-hi vimHiGroup ctermfg=79
-hi vimHiCtermFgBg ctermfg=79
-hi vimHiGuiFgBg ctermfg=79
-hi vimGroup ctermfg=79
-hi vimHiTerm ctermfg=79
-hi vimHiGui ctermfg=79
-hi vimAutoEvent ctermfg=79
-hi vimSynType ctermfg=79
-hi vimHiTerm ctermfg=79
-
-hi xmlAttrib ctermfg=209
+hi Normal ctermbg=0
+hi LineNr ctermbg=0
+hi NonText ctermfg=0
+"highlight colors of the completion popup
+hi Pmenu ctermfg=lightgray ctermbg=0
+hi PmenuSel ctermfg=lightgray ctermbg=green
+"highlight the new line tilda
+hi NonText ctermfg=0
+hi VertSplit ctermbg=0 ctermfg=67

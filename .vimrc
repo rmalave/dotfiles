@@ -15,7 +15,6 @@
 "    -> Helper functions
 "    -> Colors and Fonts
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Management
@@ -29,14 +28,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.nvim/bundle')
 
 " Make sure you use single quotes
 Plug 'chriskempson/base16-vim'
-Plug 'sickill/vim-monokai'
-Plug 'vim-scripts/visualHtml'
+Plug 'cakebaker/scss-syntax.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'JulesWang/css.vim'
 Plug 'othree/html5.vim'
+Plug 'altercation/vim-colors-solarized'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'shawncplus/phpcomplete.vim'
@@ -59,7 +59,6 @@ Plug 'alvan/vim-closetag'
 Plug 'vim-scripts/sql.vim--Stinson'
 Plug 'gregsexton/MatchTag'
 Plug 'edkolev/tmuxline.vim'
-Plug 'xuhdev/SingleCompile'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
@@ -79,6 +78,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'Shougo/neocomplcache.vim'
 Plug 'vim-scripts/Eddie.vim'
+Plug 'KurtPreston/vim-autoformat-rails'
 
 " On-demand loading
 Plug 'scrooloose/syntastic', {'on': 'SyntasticCheck' }
@@ -162,7 +162,7 @@ nmap <f9> :SCViewResultAsync<cr>
 
 "lightline
 let g:lightline = {
-      \ 'colorscheme': '16color',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
       \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -583,7 +583,7 @@ set ai "Auto indent
 
 set wrap "Wrap lines
 set listchars=tab:\\ ,nbsp:☣,eol:¬,extends:❯,precedes:❮
-set showbreak=↪\  
+set showbreak=↪\ 
 
 " allow backspacing over autoindent, linebreaks, and start of insert
 set bs=2 
@@ -849,6 +849,9 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -861,7 +864,10 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-set background=dark
+let g:solarized_termtrans = 1
+set background=light
+set t_co=256
+
 if version > 580
 	hi clear
 	if exists("syntax_on")
@@ -869,36 +875,28 @@ if version > 580
 	endif
 endif
 
-colorscheme base16-flat
-set t_Co=256
+colorscheme solarized 
+
 "highlight the current line and line number
 set cursorline
 hi CursorLineNR cterm=NONE ctermfg=79 ctermbg=NONE
 hi CursorLine term=NONE cterm=NONE ctermbg=NONE
-hi LineNr ctermfg=67
+hi LineNr ctermbg=15
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    colorscheme base16-flat
+    colorscheme solarize 
     hi LineNr guibg=#2D3E4F
     set transparency=10
     set guioptions-=T
     set guioptions-=M
     set guioptions-=r
     set guioptions-=e
-    set guifont=Monaco\ for\ Powerline\ Plus\ Nerd\ File\ Types:h14 
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ Plus\ Pomicons.otf:h14 
     set guitablabel=%M\ %t
-    set background=dark
+    set background=light
     set guioptions=bold
     set guioptions=-L
 endif
 
-hi Normal ctermbg=0
-hi LineNr ctermbg=0
-hi NonText ctermfg=0
-"highlight colors of the completion popup
-hi Pmenu ctermfg=lightgray ctermbg=0
-hi PmenuSel ctermfg=lightgray ctermbg=green
-"highlight the new line tilda
-hi NonText ctermfg=0
-hi VertSplit ctermbg=0 ctermfg=67
+
